@@ -1,0 +1,88 @@
+<html>
+
+<!-- 2. CSS - "looks" - Style sheet of the blocks and elements. -->
+<style>
+.glass {
+  height: 10px;
+  width: 10px;
+  background: red;
+  position:  relative;
+  margin-right:10px
+}
+
+.submarine {
+  height: 40px;
+  width: 200px; 
+  background: yellow;
+  position: absolute;
+}
+
+#lodge{
+  height: 8px;
+  width: 80px;
+  background: yellow;
+  position: absolute;
+  left: 80px;
+  top: -5px;
+  
+#afthatch{ 
+  height: 20px;
+  width: 10px;
+  background: blue;
+  position: absolute;
+  left: 80px;
+  top: -20px;
+
+}
+
+</style>
+<div class="submarine" id="mainbody" style="left: 100px; top: 100px;"> <!-- Use inline style for styles you want to change in javascript for now -->
+  <div id="lodge"></div>
+  <div id="afthatch"></div>
+  <div class="glass" id="firstglass" style="left: 90px; top: 15px;'></div>
+  <div class="glass" id="secondglass" style="left: 50px; top: 15px;'></div>
+ 
+</div>
+
+<!-- 3. Javascript - "brains" of your program -->
+<script>
+
+/*
+  1. Change the tank to a submarine
+  2. Draw a waterline (horizontal line on a certain height)
+  3. Make "water" blue, and air air colour whatever
+  4. If moving up to water line - don't allow crossing up into air
+  5. Make "submarine" move left a bit every frame
+  
+*/
+let pressedKeys = {};
+
+// Save state of keys pressed or released in the pressedKeys object
+window.onkeydown = function(e) { pressedKeys[e.code] = true;}
+window.onkeyup = function(e) { pressedKeys[e.code] = false;}
+
+let mainbody = document.getElementById("mainbody");
+
+// Repeat the function every 20 miliseconds
+setInterval( function() {
+  let mainbodyTop = mainbody.style.top; // 100px
+  let mainbodyTopNumber = parseInt(mainbodyTop); // 100
+
+  let mainbodyLeft = mainbody.style.left; // 100px
+  let mainbodyLeftNumber = parseInt(mainbodyLeft); // 100
+
+  if (pressedKeys.ArrowUp === true) {
+    mainbody.style.top = ( mainbodyTopNumber - 10 ) + "px";
+  }
+  if (pressedKeys.ArrowDown === true) {
+    mainbody.style.top = ( mainbodyTopNumber + 10 ) + "px";
+  }
+  if (pressedKeys.ArrowLeft === true) {
+    mainbody.style.left = ( mainbodyLeftNumber - 10 ) + "px";
+  }
+  if (pressedKeys.ArrowRight === true) {
+    mainbody.style.left = ( mainbodyLeftNumber + 10 ) + "px";
+  }
+} ,20 );
+</script>
+</html>
